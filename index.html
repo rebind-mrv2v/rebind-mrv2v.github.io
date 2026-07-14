@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <meta charset="utf-8">
+  <meta name="description" content="ReBind: Multi-Reference Video Editing via Structured Instructions with Explicit Reference Relationships">
+  <meta property="og:title" content="ReBind" />
+  <meta property="og:description"
+    content="ReBind: Multi-Reference Video Editing via Structured Instructions with Explicit Reference Relationships" />
+  <meta property="og:url" content="https://rebind-project.github.io" />
+  <meta property="og:image" content="static/images/teaser.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <title>ReBind: Multi-Reference Video Editing</title>
+  <link rel="icon" href="static/images/rebind-logo.png">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+  <section class="hero banner" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column has-text-centered">
+                    <h1 class="title is-1 publication-title" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                        <span>
+                            <span style="color: white; font-weight: bold; font-size: 40px;">
+                                <span style="font-size: 42px; margin-right: 8px;">🎬</span>
+                                <span style="color: #FFFFFF;">ReBind: Multi-Reference Video Editing via Structured Instructions</span>
+                            </span>
+                            <br>
+                            <span style="color: white; font-weight: bold; font-size: 40px;">with Explicit Reference Relationships</span>
+                        </span>
+                    </h1>
+                    <div class="is-size-5 publication-authors" style="text-align: center;">
+                        <span class="author-block">
+                          <a href="#" style="color: white !important;">Xinyu Liu</a><sup>1,6</sup>,&thinsp;
+                        </span>
+                        <span class="author-block">
+                          <a href="#" style="color: white !important;">Shihao Li</a><sup>2,6</sup>,&thinsp;
+                        </span>
+                        <span class="author-block">
+                          <a href="#" style="color: white !important;">Weihong Lin</a><sup>6</sup>,&thinsp;
+                        </span>
+                        <span class="author-block">
+                          <a href="#" style="color: white !important;">Xinlong Chen</a><sup>3,6</sup>,&thinsp;
+                        </span>
+                        <span class="author-block">
+                          <a href="#" style="color: white !important;">Yang Shi</a><sup>4,6</sup>,&thinsp;
+                        </span>
+                        <span class="author-block">
+                          <a href="#" style="color: white !important;">Yujin Han</a><sup>5</sup>,&thinsp;
+                        </span>
+                        <span class="author-block">
+                          <a href="#" style="color: white !important;">Yiyang Cai</a><sup>1</sup>,&thinsp;
+                        </span>
+                        <br>
+                        <span class="author-block">
+                          <a href="#" style="color: white !important;">Yanghao Wang</a><sup>1</sup>,&thinsp;
+                        </span>
+                        <span class="author-block">
+                          <a href="#" style="color: white !important;">Ruibin Yuan</a><sup>1</sup>,&thinsp;
+                        </span>
+                        <span class="author-block">
+                          <a href="#" style="color: white !important;">Yuanxing Zhang</a><sup>6†</sup>,&thinsp;
+                        </span>
+                        <span class="author-block">
+                          <a href="#" style="color: white !important;">Pengfei Wan</a><sup>6</sup>,&thinsp;
+                        </span>
+                        <span class="author-block">
+                          <a href="#" style="color: white !important;">Wenhan Luo</a><sup>1†</sup>,&thinsp;
+                        </span>
+                        <span class="author-block">
+                          <a href="#" style="color: white !important;">Yike Guo</a><sup>1</sup>
+                        </span>
+                    </div>
+
+                    <div class="is-size-5 publication-authors" style="text-align: center; margin-top: 10px;">
+                        <span class="author-block" style="color: rgb(200,200,200);">
+                            <sup>1</sup>HKUST&nbsp;&nbsp;<sup>2</sup>NJU&nbsp;&nbsp;<sup>3</sup>UCAS&nbsp;&nbsp;<sup>4</sup>PKU&nbsp;&nbsp;<sup>5</sup>HKU&nbsp;&nbsp;<sup>6</sup>Kling Team
+                        </span>
+                        <br>
+                        <span class="author-block" style="color: rgb(180,180,180); font-size: 0.9em; margin-top: 5px;">
+                            <sup>†</sup>Corresponding authors
+                        </span>
+                    </div>
+
+                    <div class="column has-text-centered">
+                        <div class="publication-links">
+                            <!-- Paper Link -->
+                            <span class="link-block">
+                                <a href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank"
+                                   class="external-link button is-normal is-rounded is-dark">
+                                    <span class="icon"><i class="ai ai-arxiv"></i></span>
+                                    <span>arXiv</span>
+                                </a>
+                            </span>
+
+                            <!-- Code Link -->
+                            <span class="link-block">
+                                <a href="https://github.com/rebind-project/rebind" target="_blank"
+                                   class="external-link button is-normal is-rounded is-dark">
+                                    <span class="icon"><i class="fab fa-github"></i></span>
+                                    <span>Code</span>
+                                </a>
+                            </span>
+
+                            <!-- Model Link -->
+                            <span class="link-block">
+                                <a href="https://huggingface.co/rebind-project" target="_blank"
+                                   class="external-link button is-normal is-rounded is-dark">
+                                    <span class="icon">🤗</span>
+                                    <span>Models</span>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+
+  <!-- Abstract -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Recent diffusion-based video generation models have made significant progress in multi-reference image-conditioned video editing.
+              However, existing methods still struggle to coordinate information from multiple visual sources accurately.
+              We identify that instruction quality is a critical limiting factor: existing editing instructions lack explicit reference attribution,
+              and general-purpose multimodal large language models (MLLMs) cannot generate them reliably.
+              To address this, we propose <b>ReBind</b>, a systematic framework that introduces dense instructions with explicit reference relationships
+              as the intermediate representation. Our key insight is embedding reference tokens at semantic positions to establish precise bindings
+              between visual attributes and their sources. We develop <b>ReBind-Instruct</b>, a specialized MLLM trained through a two-stage scheme:
+              Structured Instruction Learning teaches the model to generate reference-grounded instructions, while Reference Attribution Optimization
+              uses reinforcement learning with tailored rewards to improve content completeness and attribution accuracy.
+              We further develop <b>ReBind-Edit</b>, which leverages these dense instructions to perform precise multi-reference video editing
+              through cross-attention binding. Extensive experiments show that ReBind substantially outperforms general-purpose MLLMs in instruction quality
+              and achieves state-of-the-art performance among open-source methods, with ablations confirming that both instruction structure and quality
+              directly impact editing performance.
+            </p>
+          </div>
+
+          <!-- Reward Design Figure -->
+          <div style="margin-top: 40px;">
+            <img src="static/images/reward_design.png" alt="Reward Design" style="width: 100%; border-radius: 10px; margin-bottom: 20px;">
+            <p class="has-text-centered" style="font-size: 0.95em; color: #666;">
+              <b>Figure:</b> Reward design for Reference Attribution Optimization. Our tailored rewards improve both content completeness and attribution accuracy in dense instruction generation.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Qualitative Results -->
+  <section class="section">
+    <div class="container is-fullhd">
+      <h2 class="title is-3 has-text-centered" style="margin-bottom: 40px;">Qualitative Results</h2>
+
+      <!-- RV2V Section -->
+      <h3 class="title is-4 has-text-centered" style="margin-bottom: 30px;">Reference Image Conditioned Video Editing (RV2V)</h3>
+      <div class="columns" style="margin-bottom: 40px;">
+        <!-- Case 009 -->
+        <div class="column">
+          <div style="background: #f5f5f5; padding: 20px; border-radius: 10px; display: flex; flex-direction: column;">
+            <div style="margin-bottom: 15px;">
+              <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 5px;">Instruction</p>
+              <p style="font-size: 0.8em; color: #555; line-height: 1.4; margin-bottom: 10px;">The curly-haired woman's rainbow sweater and pink scarf are replaced by the bright blue suspender dress from the reference. The indoor coffee shop is replaced by a vibrant outdoor iris garden with purple and blue irises.</p>
+            </div>
+            <div style="margin-bottom: 15px;">
+              <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 10px;">Source Video</p>
+              <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                <source src="static/videos/case009_source.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div style="margin-bottom: 15px; height: 250px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+              <div style="width: 100%;">
+                <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 10px;">Reference Image</p>
+                <img src="static/images/case009_ref.jpg" alt="Ref" style="width: 100%; height: auto; max-height: 220px; object-fit: contain; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+              </div>
+            </div>
+            <div>
+              <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 10px;">Ours</p>
+              <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                <source src="static/videos/case009_ours.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case 016 -->
+        <div class="column">
+          <div style="background: #f5f5f5; padding: 20px; border-radius: 10px; display: flex; flex-direction: column;">
+            <div style="margin-bottom: 15px;">
+              <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 5px;">Instruction</p>
+              <p style="font-size: 0.8em; color: #555; line-height: 1.4; margin-bottom: 10px;">The man in a dark grey suit jacket remains, but the hospital ward background is replaced by a bright living room with a sunlit balcony, potted plants, and a drying rack from the reference.</p>
+            </div>
+            <div style="margin-bottom: 15px;">
+              <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 10px;">Source Video</p>
+              <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                <source src="static/videos/case016_source.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div style="margin-bottom: 15px; height: 250px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+              <div style="width: 100%;">
+                <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 10px;">Reference Image</p>
+                <img src="static/images/case016_ref.png" alt="Ref" style="width: 100%; height: auto; max-height: 220px; object-fit: contain; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+              </div>
+            </div>
+            <div>
+              <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 10px;">Ours</p>
+              <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                <source src="static/videos/case016_ours.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case 018 -->
+        <div class="column">
+          <div style="background: #f5f5f5; padding: 20px; border-radius: 10px; display: flex; flex-direction: column;">
+            <div style="margin-bottom: 15px;">
+              <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 5px;">Instruction</p>
+              <p style="font-size: 0.8em; color: #555; line-height: 1.4; margin-bottom: 10px;">The stop-motion puppet now wears black square-frame sunglasses from the reference, added as a new accessory. His beige coat, striped scarf, and textured hair remain unchanged.</p>
+            </div>
+            <div style="margin-bottom: 15px;">
+              <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 10px;">Source Video</p>
+              <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                <source src="static/videos/case018_source.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div style="margin-bottom: 15px; height: 250px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+              <div style="width: 100%;">
+                <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 10px;">Reference Image</p>
+                <img src="static/images/case018_ref.png" alt="Ref" style="width: 100%; height: auto; max-height: 220px; object-fit: contain; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+              </div>
+            </div>
+            <div>
+              <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 10px;">Ours</p>
+              <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                <source src="static/videos/case018_ours.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MRV2V Section -->
+      <h3 class="title is-4 has-text-centered" style="margin-bottom: 30px;">Multi-Reference Image-Conditioned Video Editing (MRV2V)</h3>
+      <div class="columns" style="margin-bottom: 20px;">
+        <!-- Case 001 -->
+        <div class="column">
+          <div style="background: #f5f5f5; padding: 20px; border-radius: 10px; display: flex; flex-direction: column;">
+            <div style="margin-bottom: 15px;">
+              <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 5px;">Instruction</p>
+              <p style="font-size: 0.8em; color: #555; line-height: 1.4; margin-bottom: 10px;">Replace the woman with a man from Ref 2 wearing a plaid cap, glasses, and brown striped T-shirt. Replace the palace corridor with a night riverside walkway from Ref 1 with glowing streetlights and a distant bridge.</p>
+            </div>
+            <div style="margin-bottom: 15px;">
+              <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 10px;">Source Video</p>
+              <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                <source src="static/videos/multi_001_source.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div style="margin-bottom: 15px; height: 250px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+              <div style="width: 100%;">
+                <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 10px;">Reference Images</p>
+                <div style="display: flex; gap: 5px; height: 220px; align-items: center;">
+                  <img src="static/images/multi_001_ref1.png" alt="Ref1" style="width: 50%; height: 100%; object-fit: contain; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  <img src="static/images/multi_001_ref2.jpg" alt="Ref2" style="width: 50%; height: 100%; object-fit: contain; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                </div>
+              </div>
+            </div>
+            <div>
+              <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 10px;">Ours</p>
+              <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                <source src="static/videos/multi_001_ours.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case 002 -->
+        <div class="column">
+          <div style="background: #f5f5f5; padding: 20px; border-radius: 10px; display: flex; flex-direction: column;">
+            <div style="margin-bottom: 15px;">
+              <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 5px;">Instruction</p>
+              <p style="font-size: 0.8em; color: #555; line-height: 1.4; margin-bottom: 10px;">Replace the brown cowboy hat with a khaki baseball cap from Ref 2. Replace the stylized red mountain background with a covered wooden bridge path over a river from Ref 1.</p>
+            </div>
+            <div style="margin-bottom: 15px;">
+              <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 10px;">Source Video</p>
+              <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                <source src="static/videos/multi_002_source.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div style="margin-bottom: 15px; height: 250px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+              <div style="width: 100%;">
+                <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 10px;">Reference Images</p>
+                <div style="display: flex; gap: 5px; height: 220px; align-items: center;">
+                  <img src="static/images/multi_002_ref1.png" alt="Ref1" style="width: 50%; height: 100%; object-fit: contain; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  <img src="static/images/multi_002_ref2.png" alt="Ref2" style="width: 50%; height: 100%; object-fit: contain; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                </div>
+              </div>
+            </div>
+            <div>
+              <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 10px;">Ours</p>
+              <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                <source src="static/videos/multi_002_ours.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case 204 -->
+        <div class="column">
+          <div style="background: #f5f5f5; padding: 20px; border-radius: 10px; display: flex; flex-direction: column;">
+            <div style="margin-bottom: 15px;">
+              <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 5px;">Instruction</p>
+              <p style="font-size: 0.8em; color: #555; line-height: 1.4; margin-bottom: 10px;">Replace the carpet with a red-brown patterned one from Ref 1. Replace the sofa with a log-frame beige fabric three-seater from Ref 3. The black cat and its movements remain unchanged.</p>
+            </div>
+            <div style="margin-bottom: 15px;">
+              <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 10px;">Source Video</p>
+              <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                <source src="static/videos/multi_204_source.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div style="margin-bottom: 15px; height: 250px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+              <div style="width: 100%;">
+                <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 10px;">Reference Images</p>
+                <div style="display: flex; gap: 5px; height: 220px; align-items: center;">
+                  <img src="static/images/multi_204_ref1.png" alt="Ref1" style="width: 33%; height: 100%; object-fit: contain; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  <img src="static/images/multi_204_ref2.png" alt="Ref2" style="width: 33%; height: 100%; object-fit: contain; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  <img src="static/images/multi_204_ref3.png" alt="Ref3" style="width: 33%; height: 100%; object-fit: contain; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                </div>
+              </div>
+            </div>
+            <div>
+              <p style="font-weight: bold; font-size: 0.9em; margin-bottom: 10px;">Ours</p>
+              <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                <source src="static/videos/multi_204_ours.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Comparisons -->
+  <section class="section">
+    <div class="container is-fullhd">
+      <h2 class="title is-3 has-text-centered" style="margin-bottom: 40px;">Comparison Results</h2>
+
+      <!-- RV2V Comparison - Full Width Row -->
+      <div class="columns" style="margin-bottom: 40px;">
+        <div class="column">
+          <div style="background: #f5f5f5; padding: 30px; border-radius: 10px;">
+            <h4 class="title is-5 has-text-centered" style="margin-bottom: 30px;">RV2V</h4>
+
+            <!-- Source and Reference -->
+            <div class="columns is-centered" style="margin-bottom: 30px; min-height: 300px; align-items: center;">
+              <div class="column is-3">
+                <p class="has-text-centered" style="font-weight: bold; margin-bottom: 15px; font-size: 1.1em;">Source Video</p>
+                <video autoplay loop muted playsinline style="width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  <source src="static/videos/rv2v_source.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="column is-3" style="display: flex; flex-direction: column; align-items: center;">
+                <p class="has-text-centered" style="font-weight: bold; margin-bottom: 15px; font-size: 1.1em;">Reference Image</p>
+                <div style="width: 100%; height: 250px; display: flex; align-items: center; justify-content: center;">
+                  <img src="static/images/rv2v_ref.png" alt="Reference" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                </div>
+              </div>
+            </div>
+
+            <!-- Methods -->
+            <div class="columns is-multiline">
+              <div class="column is-3">
+                <p class="has-text-centered" style="font-weight: bold; margin-bottom: 15px; font-size: 1.1em;">UniVideo</p>
+                <video autoplay loop muted playsinline style="width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  <source src="static/videos/rv2v_univideo.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="column is-3">
+                <p class="has-text-centered" style="font-weight: bold; margin-bottom: 15px; font-size: 1.1em;">Kiwi-Edit</p>
+                <video autoplay loop muted playsinline style="width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  <source src="static/videos/rv2v_kiwi.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="column is-3">
+                <p class="has-text-centered" style="font-weight: bold; margin-bottom: 15px; font-size: 1.1em;">OmniWeaving</p>
+                <video autoplay loop muted playsinline style="width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  <source src="static/videos/rv2v_omniweaving.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="column is-3">
+                <p class="has-text-centered" style="font-weight: bold; margin-bottom: 15px; font-size: 1.1em;">Ours (ReBind)</p>
+                <video autoplay loop muted playsinline style="width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  <source src="static/videos/rv2v_ours.mp4" type="video/mp4">
+                </video>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MRV2V Comparison - Full Width Row -->
+      <div class="columns" style="margin-bottom: 40px;">
+        <div class="column">
+          <div style="background: #f5f5f5; padding: 30px; border-radius: 10px;">
+            <h4 class="title is-5 has-text-centered" style="margin-bottom: 30px;">MRV2V</h4>
+
+            <!-- Source and References -->
+            <div class="columns is-centered" style="margin-bottom: 30px; min-height: 300px; align-items: center;">
+              <div class="column is-3">
+                <p class="has-text-centered" style="font-weight: bold; margin-bottom: 15px; font-size: 1.1em;">Source Video</p>
+                <video autoplay loop muted playsinline style="width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  <source src="static/videos/mrv2v_source.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="column is-4" style="display: flex; flex-direction: column; align-items: center;">
+                <p class="has-text-centered" style="font-weight: bold; margin-bottom: 15px; font-size: 1.1em;">Reference Images</p>
+                <div style="display: flex; gap: 10px; height: 250px; align-items: center; width: 100%;">
+                  <div style="flex: 1; height: 100%; display: flex; align-items: center; justify-content: center;">
+                    <img src="static/images/mrv2v_ref1.png" alt="Reference 1" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  </div>
+                  <div style="flex: 1; height: 100%; display: flex; align-items: center; justify-content: center;">
+                    <img src="static/images/mrv2v_ref2.jpg" alt="Reference 2" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Methods -->
+            <div class="columns is-multiline">
+              <div class="column is-3">
+                <p class="has-text-centered" style="font-weight: bold; margin-bottom: 15px; font-size: 1.1em;">UniVideo</p>
+                <video autoplay loop muted playsinline style="width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  <source src="static/videos/mrv2v_univideo.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="column is-3">
+                <p class="has-text-centered" style="font-weight: bold; margin-bottom: 15px; font-size: 1.1em;">Kiwi-Edit</p>
+                <video autoplay loop muted playsinline style="width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  <source src="static/videos/mrv2v_kiwi.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="column is-3">
+                <p class="has-text-centered" style="font-weight: bold; margin-bottom: 15px; font-size: 1.1em;">OmniWeaving</p>
+                <video autoplay loop muted playsinline style="width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  <source src="static/videos/mrv2v_omniweaving.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="column is-3">
+                <p class="has-text-centered" style="font-weight: bold; margin-bottom: 15px; font-size: 1.1em;">Ours (ReBind)</p>
+                <video autoplay loop muted playsinline style="width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  <source src="static/videos/mrv2v_ours.mp4" type="video/mp4">
+                </video>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case 524 - MRV2V Additional Example - Full Width Row -->
+      <div class="columns" style="margin-bottom: 40px;">
+        <div class="column">
+          <div style="background: #f5f5f5; padding: 30px; border-radius: 10px;">
+            <h4 class="title is-5 has-text-centered" style="margin-bottom: 30px;">MRV2V</h4>
+
+            <!-- Source and References -->
+            <div class="columns is-centered" style="margin-bottom: 30px; min-height: 300px; align-items: center;">
+              <div class="column is-3">
+                <p class="has-text-centered" style="font-weight: bold; margin-bottom: 15px; font-size: 1.1em;">Source Video</p>
+                <video autoplay loop muted playsinline style="width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  <source src="static/videos/case524_source.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="column is-5" style="display: flex; flex-direction: column; align-items: center;">
+                <p class="has-text-centered" style="font-weight: bold; margin-bottom: 15px; font-size: 1.1em;">Reference Images</p>
+                <div style="display: flex; gap: 10px; height: 250px; align-items: center; width: 100%;">
+                  <div style="flex: 1; height: 100%; display: flex; align-items: center; justify-content: center;">
+                    <img src="static/images/case524_ref1.png" alt="Reference 1" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  </div>
+                  <div style="flex: 1; height: 100%; display: flex; align-items: center; justify-content: center;">
+                    <img src="static/images/case524_ref2.jpg" alt="Reference 2" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  </div>
+                  <div style="flex: 1; height: 100%; display: flex; align-items: center; justify-content: center;">
+                    <img src="static/images/case524_ref3.png" alt="Reference 3" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Methods -->
+            <div class="columns is-multiline">
+              <div class="column is-3">
+                <p class="has-text-centered" style="font-weight: bold; margin-bottom: 15px; font-size: 1.1em;">UniVideo</p>
+                <video autoplay loop muted playsinline style="width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  <source src="static/videos/case524_univideo.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="column is-3">
+                <p class="has-text-centered" style="font-weight: bold; margin-bottom: 15px; font-size: 1.1em;">Kiwi-Edit</p>
+                <video autoplay loop muted playsinline style="width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  <source src="static/videos/case524_kiwi.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="column is-3">
+                <p class="has-text-centered" style="font-weight: bold; margin-bottom: 15px; font-size: 1.1em;">OmniWeaving</p>
+                <video autoplay loop muted playsinline style="width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  <source src="static/videos/case524_omniweaving.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="column is-3">
+                <p class="has-text-centered" style="font-weight: bold; margin-bottom: 15px; font-size: 1.1em;">Ours (ReBind)</p>
+                <video autoplay loop muted playsinline style="width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                  <source src="static/videos/case524_ours.mp4" type="video/mp4">
+                </video>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Summary Text -->
+      <div class="columns is-centered" style="margin-top: 30px;">
+        <div class="column is-four-fifths">
+          <p class="has-text-justified has-text-centered">
+            <b>ReBind</b> achieves state-of-the-art performance among open-source methods on both single-reference (RV2V) and
+            multi-reference (MRV2V) video editing benchmarks, with particularly strong performance on multi-reference scenarios
+            that require precise coordination across visual sources.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <p>
+          This website is adapted from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+        </p>
+        <p style="margin-top: 10px;">
+          <span id="busuanzi_container_site_pv" style="color: #888;">
+            Click Count: <span id="busuanzi_value_site_pv"></span>
+          </span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</body>
+</html>
